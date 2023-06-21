@@ -2,9 +2,12 @@
 
 ## OJO, se recomienda encarecidamente que generemos el certificado autofirmado previo a la ejecución de la construcción y puesta en marcha del contenedor.
 if [ -f cert.pem ] || [ -f key.pem ]; then
-  echo "Archivos de certificado autofirmado corroborados, procederemos con la creación y puesta en marcha de la imagen y contenedor"
+  echo "###~~- Archivos de certificado autofirmado corroborados, procederemos con la creación y puesta en marcha de la imagen y contenedor -~~###"
+  sleep 1
 else
-  echo "Se deben crear manualmente los archivos cert.pem y key.pem, para ello puedes usar el script generate_certificate.sh"
+  echo "###!!! ATENCION: Se deben crear manualmente los archivos cert.pem y key.pem, para ello puedes usar el script generate_certificate.sh !!!###"
+  echo "Si desea continuar con la ejecución del script manual de generación, puede esperar 3 segundos. De lo contrario presione Ctrl+C para cancelar."
+  sleep 3
   $(pwd)/./generate_certificate.sh
 fi
 
@@ -17,5 +20,4 @@ if [ -n $BACKEND_URL ]; then
     export backend_url="http://localhost"
 fi
 
-#docker run -p 80:80 -p 443:443 -e "backend_url='http://localhost'" -d iarch_nginx_reverse_proxy
 docker run -d iarch_nginx_reverse_proxy
