@@ -11,16 +11,12 @@ else
   $(pwd)/./generate_certificate.sh
 fi
 
+# if [[ -z $BACKEND_URL ]]; then
+#     echo "El valor de la variable backend_url está vacío, por lo que se usará el valor por defecto: 127.0.0.1"
+#     export BACKEND_URL="http://127.0.0.1:80"
+# fi
+
 # Este script se puede usar para automatizar la creación de la imagen Docker para NGINX, y posteriormente dejar levantado el contenedor con las especificaciones de puertos.
 docker build -t iarch_nginx_reverse_proxy .
 
-if [[ -z $BACKEND_URL ]]; then
-    echo "El valor de la variable backend_url está vacío, por lo que se usará el valor por defecto: localhost"
-    export BACKEND_URL="localhost"
-fi
-
-docker run -d iarch_nginx_reverse_proxy
-
-if [ $? -eq 0 ]; then
-  echo "####~~-- Atención: hubo un error en la ejecución del script que terminó con un código 0 --~~###"
-fi
+docker run --name nginx_reverse_proxy_test -d iarch_nginx_reverse_proxy
