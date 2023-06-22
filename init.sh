@@ -14,10 +14,9 @@ fi
 # Este script se puede usar para automatizar la creación de la imagen Docker para NGINX, y posteriormente dejar levantado el contenedor con las especificaciones de puertos.
 docker build -t iarch_nginx_reverse_proxy .
 
-if [ -n $BACKEND_URL ]; then
-    echo "El valor de la variable backend_url está vacío, por lo que se usará el valor por defecto: http://localhost"
-    export BACKEND_URL="http://localhost"
-    export backend_url="http://localhost"
+if [[ -z $BACKEND_URL ]]; then
+    echo "El valor de la variable backend_url está vacío, por lo que se usará el valor por defecto: localhost"
+    export BACKEND_URL="localhost"
 fi
 
 docker run -d iarch_nginx_reverse_proxy
