@@ -20,3 +20,7 @@ if [[ -z $BACKEND_URL ]]; then
 fi
 
 docker run -d iarch_nginx_reverse_proxy
+
+if [ $? -eq 0 ]; then
+  echo "####~~-- Atención: hubo un error en la ejecución del script que terminó con un código 0 --~~###"
+fi
